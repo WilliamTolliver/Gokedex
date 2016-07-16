@@ -6,13 +6,13 @@ package wttechnologies.com.pokedextest;
 public class Pokemon {
 
     //Declarations
-    int id;
-    String name, type1, type2, imageUrl;
+    int id, imageId;
+    String name, type1, type2;
 
-    public Pokemon(int id, String name, String type1, String type2, String imageUrl) {
+    public Pokemon(int id, String name, String type1, String type2, int imageId) {
         this.id = id;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.imageId = imageId;
         this.type1 = type1;
         this.type2 = type2;
     }
@@ -51,22 +51,22 @@ public class Pokemon {
         this.type2 = type2;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     @Override
     public String toString() {
         return "Pokemon{" +
                 "id=" + id +
+                ", imageId=" + imageId +
                 ", name='" + name + '\'' +
                 ", type1='" + type1 + '\'' +
                 ", type2='" + type2 + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

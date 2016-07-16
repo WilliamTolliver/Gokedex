@@ -1,6 +1,6 @@
 1	bulbasaur	grass	poison
-2	ivysaur	grass	poison
-3	venusaur	grass	poison
+2	venusaur	grass	poison
+3	ivysaur		grass	poison
 4	charmander	fire	
 5	charmeleon	fire	
 6	charizard	fire	flying
@@ -80,7 +80,7 @@
 80	slowbro	water	psychic
 81	magnemite	electric	steel
 82	magneton	electric	steel
-83	farfetch'd	normal	flying
+83	farfetchd	normal	flying
 84	doduo	normal	flying
 85	dodrio	normal	flying
 86	seel	water	
