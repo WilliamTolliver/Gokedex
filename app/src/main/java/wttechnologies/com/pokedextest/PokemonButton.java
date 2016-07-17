@@ -7,7 +7,7 @@ import android.widget.ImageView;
 /**
  * Created by William on 7/16/2016.
  */
-public class PokemonButton extends ImageView {
+public class PokemonButton extends ImageButton {
 
     //Declarations
     Pokemon pokemon;

@@ -27,25 +27,12 @@ public class MainActivity extends AppCompatActivity {
         makeNormalAttackTable(mydatabase);
         makeSpecialAttackTable(mydatabase);
 
-//        //Check Database entries
-//        Cursor resultSet = mydatabase.rawQuery("Select * from pokemon",null);
-//        resultSet.moveToFirst();
-//        while(resultSet.moveToNext())
-//            Log.i("PokeName: ", resultSet.getString(1));
-//
-//        Cursor resultSet2 = mydatabase.rawQuery("Select * from normal_attack",null);
-//        resultSet.moveToFirst();
-//        while(resultSet2.moveToNext())
-//            Log.i("NormalAttack: ", resultSet2.getString(0));
-//
-//        Cursor resultSet3 = mydatabase.rawQuery("Select * from special_attack",null);
-//        resultSet.moveToFirst();
-//        while(resultSet3.moveToNext())
-//            Log.i("SpecialAttack: ", resultSet2.getString(0));
+        // Create GridView and get list of Pokemon
         GridView gridView = (GridView) findViewById(R.id.grid_view);
+        List<Pokemon> pokemon = getPokemon(this, R.raw.list);
 
         // Instance of ImageAdapter Class
-        ImageAdapter adapter = new ImageAdapter(this, getPokemon(this, R.raw.list));
+        ImageAdapter adapter = new ImageAdapter(this, pokemon);
         gridView.setAdapter(adapter);
 
     }

@@ -1,9 +1,11 @@
 package wttechnologies.com.pokedextest;
 
+import java.io.Serializable;
+
 /**
  * Created by William on 7/15/2016.
  */
-public class Pokemon {
+public class Pokemon implements Serializable {
 
     //Declarations
     int id, imageId;
