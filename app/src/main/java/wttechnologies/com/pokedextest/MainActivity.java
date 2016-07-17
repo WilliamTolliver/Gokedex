@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.GridView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,27 +21,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.grid_layout);
         SQLiteDatabase mydatabase = openOrCreateDatabase("gokedex",MODE_PRIVATE,null);
         makePokemonTable(mydatabase);
         makeNormalAttackTable(mydatabase);
         makeSpecialAttackTable(mydatabase);
 
-        //Check Database entries
-        Cursor resultSet = mydatabase.rawQuery("Select * from pokemon",null);
-        resultSet.moveToFirst();
-        while(resultSet.moveToNext())
-            Log.i("PokeName: ", resultSet.getString(1));
+//        //Check Database entries
+//        Cursor resultSet = mydatabase.rawQuery("Select * from pokemon",null);
+//        resultSet.moveToFirst();
+//        while(resultSet.moveToNext())
+//            Log.i("PokeName: ", resultSet.getString(1));
+//
+//        Cursor resultSet2 = mydatabase.rawQuery("Select * from normal_attack",null);
+//        resultSet.moveToFirst();
+//        while(resultSet2.moveToNext())
+//            Log.i("NormalAttack: ", resultSet2.getString(0));
+//
+//        Cursor resultSet3 = mydatabase.rawQuery("Select * from special_attack",null);
+//        resultSet.moveToFirst();
+//        while(resultSet3.moveToNext())
+//            Log.i("SpecialAttack: ", resultSet2.getString(0));
+        GridView gridView = (GridView) findViewById(R.id.grid_view);
 
-        Cursor resultSet2 = mydatabase.rawQuery("Select * from normal_attack",null);
-        resultSet.moveToFirst();
-        while(resultSet2.moveToNext())
-            Log.i("NormalAttack: ", resultSet2.getString(0));
-
-        Cursor resultSet3 = mydatabase.rawQuery("Select * from special_attack",null);
-        resultSet.moveToFirst();
-        while(resultSet3.moveToNext())
-            Log.i("SpecialAttack: ", resultSet2.getString(0));
+        // Instance of ImageAdapter Class
+        ImageAdapter adapter = new ImageAdapter(this, getPokemon(this, R.raw.list));
+        gridView.setAdapter(adapter);
 
     }
 
@@ -156,4 +162,6 @@ public class MainActivity extends AppCompatActivity {
         for(SpecialAttack attack : specialAttacks) {
             mydatabase.execSQL("INSERT INTO normal_attack (name, type, damage)  VALUES('" +  attack.getName().toString() + "', '" + attack.getType().toString() + "', "  + attack.getDamage() + ");");        }
     }
+
+
 }

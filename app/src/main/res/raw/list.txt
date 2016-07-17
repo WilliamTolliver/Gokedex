@@ -26,10 +26,10 @@
 26	raichu	electric	
 27	sandshrew	ground	
 28	sandslash	ground	
-29	nidoran?	poison	
+29	nidoranf	poison
 30	nidorina	poison	
 31	nidoqueen	poison	ground
-32	nidoran?	poison	
+32	nidoranm	poison
 33	nidorino	poison	
 34	nidoking	poison	ground
 35	clefairy	fairy	
@@ -68,7 +68,7 @@
 68	machamp	fighting	
 69	bellsprout	grass	poison
 70	weepinbell	grass	poison
-71	victreebel	grass	poison
+71	victreebell	grass	poison
 72	tentacool	water	poison
 73	tentacruel	water	poison
 74	geodude	rock	ground
@@ -123,7 +123,8 @@
 123	scyther	bug	flying
 124	jynx	ice	psychic
 125	electabuzz	electric	
-126	magmar	fire	,127,pinsir,bug	
+126	magmar	fire
+127 pinsir bug
 128	tauros	normal	
 129	magikarp	water	
 130	gyarados	water	flying
