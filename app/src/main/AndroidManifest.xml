@@ -16,9 +16,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="wttechnologies.com.pokedextest.PokemonInfoActivity"
-            android:label="@string/app_name"
-            />
+            android:name=".PokemonInfoActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
