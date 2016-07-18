@@ -6,14 +6,15 @@ package wttechnologies.com.pokedextest;
 public class SpecialAttack {
 
     //Declarations
-    String name, type;
+    String name, type, known_by;
     int damage, energy;
 
-    public SpecialAttack(String name, String type, int damage, int energy) {
+    public SpecialAttack(String name, String type, int damage, int energy, String known_by) {
         this.name = name;
         this.type = type;
         this.damage = damage;
         this.energy = energy;
+        this.known_by = known_by;
     }
 
     public SpecialAttack(){}
@@ -50,11 +51,20 @@ public class SpecialAttack {
         this.energy = energy;
     }
 
+    public String getKnown_by() {
+        return known_by;
+    }
+
+    public void setKnown_by(String known_by) {
+        this.known_by = known_by;
+    }
+
     @Override
     public String toString() {
         return "SpecialAttack{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
+                ", known_by='" + known_by + '\'' +
                 ", damage=" + damage +
                 ", energy=" + energy +
                 '}';

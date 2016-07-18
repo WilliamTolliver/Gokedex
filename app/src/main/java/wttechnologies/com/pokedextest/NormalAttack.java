@@ -1,18 +1,21 @@
 package wttechnologies.com.pokedextest;
 
+import java.util.List;
+
 /**
  * Created by William on 7/16/2016.
  */
 public class NormalAttack {
 
     //Declarations
-    String name, type;
+    String name, type, known_by;
     int damage;
 
-    public NormalAttack(String name, String type, int damage) {
+    public NormalAttack(String name, String type, int damage, String known_by) {
         this.name = name;
         this.type = type;
         this.damage = damage;
+        this.known_by = known_by;
     }
 
     public NormalAttack(){}
@@ -41,10 +44,19 @@ public class NormalAttack {
         this.damage = damage;
     }
 
+    public String getKnown_by() {
+        return known_by;
+    }
+
+    public void setKnown_by(String known_by) {
+        this.known_by = known_by;
+    }
+
     @Override
     public String toString() {
         return "NormalAttack{" +
-                "name='" + name + '\'' +
+                "known_by=" + known_by +
+                ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", damage=" + damage +
                 '}';

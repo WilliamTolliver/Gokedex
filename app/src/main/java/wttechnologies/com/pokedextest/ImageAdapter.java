@@ -52,21 +52,6 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        final PokemonButton imageView = new PokemonButton(mContext, list.get(position));
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               Intent myIntent = new Intent(mContext, PokemonInfoActivity.class);
-//                myIntent.putExtra("pokemon", imageView.getPokemon()); //Optional parameters
-//                mContext.startActivity(myIntent);
-//                // / Toast.makeText(mContext.getApplicationContext(),imageView.getPokemon().getName() , Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        Log.i("Name:", imageView.getPokemon().getName());
-//        imageView.setImageResource(list.get(position).getImageId());
-//        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//        imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
-//        return imageView;
 
         View row = convertView;
         ViewHolder holder = null;
@@ -91,7 +76,6 @@ public class ImageAdapter extends BaseAdapter {
                 Intent myIntent = new Intent(mContext, PokemonInfoActivity.class);
                 myIntent.putExtra("pokemon", imageView.getPokemon()); //Optional parameters
                 mContext.startActivity(myIntent);
-                // / Toast.makeText(mContext.getApplicationContext(),imageView.getPokemon().getName() , Toast.LENGTH_SHORT).show();
             }
         });
         return row;
