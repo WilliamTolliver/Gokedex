@@ -1,11 +1,12 @@
 package wttechnologies.com.pokedextest;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by William on 7/16/2016.
  */
-public class NormalAttack {
+public class NormalAttack implements Serializable {
 
     //Declarations
     String name, type, known_by;

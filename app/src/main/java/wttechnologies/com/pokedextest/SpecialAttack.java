@@ -1,9 +1,11 @@
 package wttechnologies.com.pokedextest;
 
+import java.io.Serializable;
+
 /**
  * Created by William on 7/16/2016.
  */
-public class SpecialAttack {
+public class SpecialAttack implements Serializable {
 
     //Declarations
     String name, type, known_by;

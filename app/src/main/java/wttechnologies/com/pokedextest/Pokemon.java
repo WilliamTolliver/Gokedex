@@ -1,6 +1,7 @@
 package wttechnologies.com.pokedextest;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by William on 7/15/2016.
@@ -10,11 +11,13 @@ public class Pokemon implements Serializable {
     //Declarations
     int id, imageId;
     String name, type1, type2;
+    List<NormalAttack> normals;
+    List<SpecialAttack> specials;
 
-    public Pokemon(int id, String name, String type1, String type2, int imageId) {
+    public Pokemon(int id, String name, String type1, String type2,int imageId, List<NormalAttack> normals, List<SpecialAttack> specials) {
         this.id = id;
-        this.name = name;
         this.imageId = imageId;
+        this.name = name;
         this.type1 = type1;
         this.type2 = type2;
     }
@@ -61,6 +64,22 @@ public class Pokemon implements Serializable {
         this.imageId = imageId;
     }
 
+    public List<NormalAttack> getNormals() {
+        return normals;
+    }
+
+    public void setNormals(List<NormalAttack> normals) {
+        this.normals = normals;
+    }
+
+    public List<SpecialAttack> getSpecials() {
+        return specials;
+    }
+
+    public void setSpecials(List<SpecialAttack> specials) {
+        this.specials = specials;
+    }
+
     @Override
     public String toString() {
         return "Pokemon{" +
@@ -69,6 +88,8 @@ public class Pokemon implements Serializable {
                 ", name='" + name + '\'' +
                 ", type1='" + type1 + '\'' +
                 ", type2='" + type2 + '\'' +
+                ", normals=" + normals +
+                ", specials=" + specials +
                 '}';
     }
 }
