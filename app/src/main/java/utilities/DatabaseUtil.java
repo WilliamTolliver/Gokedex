@@ -70,7 +70,6 @@ public class DatabaseUtil {
                 pokemonList.add(poke);
             }
             for (Pokemon pokemon : pokemonList){
-                Log.i("Pokemon: ", pokemon.toString());
             }
         } catch (IOException e) {
             return null;
@@ -188,7 +187,7 @@ public class DatabaseUtil {
         SQLiteDatabase mydatabase = ctx.openOrCreateDatabase("gokedex", ctx.MODE_PRIVATE, null);
         List<NormalAttack> attacks = new ArrayList<>();
         Cursor resultSet = mydatabase.rawQuery("Select * from normal_attack WHERE known_by LIKE '%" + pokemon.getName() + "%'" ,null);
-        resultSet.moveToFirst();
+        //resultSet.moveToFirst();
         NormalAttack norm;
         while(resultSet.moveToNext()){
             norm = new NormalAttack(resultSet.getString(0).toString(), resultSet.getString(1).toString(), Integer.parseInt(resultSet.getString(2)), pokemon.getName());
@@ -204,7 +203,7 @@ public class DatabaseUtil {
         SQLiteDatabase mydatabase = ctx.openOrCreateDatabase("gokedex", ctx.MODE_PRIVATE, null);
         List<SpecialAttack> attacks = new ArrayList<>();
         Cursor resultSet = mydatabase.rawQuery("Select * from special_attack WHERE known_by LIKE '%" + pokemon.getName() + "%'" ,null);
-        resultSet.moveToFirst();
+        //resultSet.moveToFirst();
         SpecialAttack norm;
         while(resultSet.moveToNext()){
             norm = new SpecialAttack(resultSet.getString(0).toString(), resultSet.getString(1).toString(), Integer.parseInt(resultSet.getString(2)), Integer.parseInt(resultSet.getString(3)), pokemon.getName());

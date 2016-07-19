@@ -63,12 +63,9 @@ public class SpecialAttack implements Serializable {
 
     @Override
     public String toString() {
-        return "SpecialAttack{" +
-                "name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", known_by='" + known_by + '\'' +
-                ", damage=" + damage +
-                ", energy=" + energy +
-                '}';
+        return  "Name: " + name + '\n' +
+                "Type: " + type + '\n' +
+                "Damage: " + damage + '\n' +
+                "Energy: " + energy;
     }
 }

@@ -55,11 +55,8 @@ public class NormalAttack implements Serializable {
 
     @Override
     public String toString() {
-        return "NormalAttack{" +
-                "known_by=" + known_by +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", damage=" + damage +
-                '}';
+        return  "Name: " + name + '\n' +
+                "Type: " + type + '\n' +
+                "Damage: " + damage;
     }
 }
