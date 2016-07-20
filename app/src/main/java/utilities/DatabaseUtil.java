@@ -53,19 +53,13 @@ public class DatabaseUtil {
                     if (pokemonValues.size() < 4) {
                         poke = new Pokemon(Integer.parseInt(pokemonValues.get(0)), pokemonValues.get(1), pokemonValues.get(2), "", 0, null, null);
                         poke.setImageId( ctx.getResources().getIdentifier(poke.getName().toString(), "drawable", ctx.getPackageName()));
-                        poke.setNormals(getNormalsPer(ctx, poke));
-                        poke.setSpecials(getSpecialsPer(ctx,poke));
                     }else if (pokemonValues.size() == 4) {
                         poke = new Pokemon(Integer.parseInt(pokemonValues.get(0)), pokemonValues.get(1), pokemonValues.get(2), pokemonValues.get(3), 0, null, null);
                         poke.setImageId( ctx.getResources().getIdentifier(poke.getName().toString(), "drawable", ctx.getPackageName()));
-                        poke.setNormals(getNormalsPer(ctx,poke));
-                        poke.setSpecials(getSpecialsPer(ctx,poke));
                     } else if (pokemonValues.size() == 5) {
                         poke = new Pokemon(Integer.parseInt(pokemonValues.get(0)), pokemonValues.get(1), pokemonValues.get(2), pokemonValues.get(3), 0, null, null);
                         poke.setImageId( ctx.getResources().getIdentifier(poke.getName().toString(), "drawable", ctx.getPackageName()));
-                        poke.setNormals(getNormalsPer(ctx,poke));
-                        poke.setSpecials(getSpecialsPer(ctx,poke));
-                    }
+                }
                 }
                 pokemonList.add(poke);
             }
@@ -187,7 +181,6 @@ public class DatabaseUtil {
         SQLiteDatabase mydatabase = ctx.openOrCreateDatabase("gokedex", ctx.MODE_PRIVATE, null);
         List<NormalAttack> attacks = new ArrayList<>();
         Cursor resultSet = mydatabase.rawQuery("Select * from normal_attack WHERE known_by LIKE '%" + pokemon.getName() + "%'" ,null);
-        //resultSet.moveToFirst();
         NormalAttack norm;
         while(resultSet.moveToNext()){
             norm = new NormalAttack(resultSet.getString(0).toString(), resultSet.getString(1).toString(), Integer.parseInt(resultSet.getString(2)), pokemon.getName());
@@ -203,7 +196,6 @@ public class DatabaseUtil {
         SQLiteDatabase mydatabase = ctx.openOrCreateDatabase("gokedex", ctx.MODE_PRIVATE, null);
         List<SpecialAttack> attacks = new ArrayList<>();
         Cursor resultSet = mydatabase.rawQuery("Select * from special_attack WHERE known_by LIKE '%" + pokemon.getName() + "%'" ,null);
-        //resultSet.moveToFirst();
         SpecialAttack norm;
         while(resultSet.moveToNext()){
             norm = new SpecialAttack(resultSet.getString(0).toString(), resultSet.getString(1).toString(), Integer.parseInt(resultSet.getString(2)), Integer.parseInt(resultSet.getString(3)), pokemon.getName());
@@ -214,5 +206,21 @@ public class DatabaseUtil {
 
         return attacks;
     }
+
+    public static List<Pokemon> setAttacks(Context ctx, List<Pokemon> pokemons){
+
+            pokemons = getPokemon(ctx, R.raw.list);
+
+        for (Pokemon poke : pokemons) {
+            if(getNormalsPer(ctx, poke).size() > 0) {
+                poke.setNormals(getNormalsPer(ctx, poke));
+            }
+            if(getSpecialsPer(ctx, poke).size() > 0) {
+                poke.setSpecials(getSpecialsPer(ctx, poke));
+            }
+        }
+        return pokemons;
+    }
+
 
 }

@@ -3,6 +3,7 @@ package wttechnologies.com.pokedextest;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -33,10 +34,12 @@ public class PokemonInfoActivity extends AppCompatActivity {
         {
             Pokemon poke = (Pokemon)getIntent().getSerializableExtra("pokemon");
 
-            for(NormalAttack atk : poke.getNormals())
-                attacks.add(atk.toString());
-            for(SpecialAttack atk : poke.getSpecials())
-                attacks.add(atk.toString());
+            if(poke.getNormals().size() > 0)
+                for(NormalAttack atk : poke.getNormals())
+                    attacks.add(atk.toString());
+            if(poke.getNormals().size() > 0)
+                for(SpecialAttack atk : poke.getSpecials())
+                    attacks.add(atk.toString());
 
 
             ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, attacks);
