@@ -22,6 +22,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.DatabaseUtil;
+
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private List<Pokemon> list = new ArrayList<>();
@@ -30,8 +32,8 @@ public class ImageAdapter extends BaseAdapter {
     private Integer[] mThumbIds = new Integer[list.size()];
 
     // Constructor
-    public ImageAdapter(Context c, List<Pokemon> list){
-        this.list = list;
+    public ImageAdapter(Context c){
+        this.list = DatabaseUtil.setAttacks(c, DatabaseUtil.getPokemonFromFile(c, R.raw.list));;
         mContext = c;
     }
 

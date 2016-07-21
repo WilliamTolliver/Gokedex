@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -23,33 +24,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.grid_layout);
+        setContentView(R.layout.activity_main);
         success = DatabaseUtil.createPokemonDB(this);
+
+        // Create GridView and get list of Pokemon
+        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_main);
+        ConfigureViews.setGridView(this, layout);
+
+        Button mapsButton = (Button) findViewById(R.id.maps_button);
+        mapsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent listIntent = new Intent(getBaseContext(), MapsActivity.class);
+                startActivity(listIntent);
+            }
+        });
+
+        Button listButton = (Button) findViewById(R.id.list_button);
+        Context ctx = this;
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapsIntent = new Intent(getBaseContext(), PokemonListActivity.class);
+                startActivity(mapsIntent);
+            }
+        });
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-            // Create GridView and get list of Pokemon
-            GridView gridView = (GridView) findViewById(R.id.grid_view);
-            ConfigureViews.setGridView(this, gridView);
-
-            Button mapsButton = (Button) findViewById(R.id.maps_button);
-            Context ctx = this;
-            mapsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent mapsIntent = new Intent(getBaseContext(), MapsActivity.class);
-                    startActivity(mapsIntent);
-                }
-            });
-
-            //gridView.setBackground(getResources().getDrawable(R.drawable.teams2));
-            List<Pokemon> pokemon = DatabaseUtil.setAttacks(this, DatabaseUtil.getPokemonFromFile(this, R.raw.list));
-
-            // Instance of ImageAdapter Class
-            ImageAdapter adapter = new ImageAdapter(this, pokemon);
-            gridView.setAdapter(adapter);
-
-    }
 }

@@ -4,17 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-    <Button android:id="@+id/maps_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:columnWidth="90dp"
-        android:horizontalSpacing="10dp"
-        android:text="Pokemon Locator"
-        android:textColor="#ffffff"
-        android:background="#ff0000"
-        android:verticalSpacing="10dp"
-        android:gravity="center"
-        android:stretchMode="columnWidth" />
 
     <GridView
         android:id="@+id/grid_view"

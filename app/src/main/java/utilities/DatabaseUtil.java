@@ -151,7 +151,7 @@ public class DatabaseUtil {
 
     public static void makePokemonTable(Context ctx,SQLiteDatabase mydatabase){
         mydatabase.execSQL("DROP TABLE IF EXISTS pokemon;");
-        mydatabase.execSQL("CREATE TABLE pokemon(id int,name varchar(255),type1 varchar(255),type2 varchar(255),imageId int);");
+        mydatabase.execSQL("CREATE TABLE pokemon (id int,name varchar(255),type1 varchar(255),type2 varchar(255),imageId int);");
 
         List<Pokemon> result = getPokemonFromFile(ctx, R.raw.list);
         for(Pokemon pokemon : result) {
@@ -160,7 +160,7 @@ public class DatabaseUtil {
     }
 
     public static void makeEffectivenessTable(Context ctx,SQLiteDatabase mydatabase){
-        mydatabase.execSQL("DROP TABLE IF EXISTS pokemon;");
+        mydatabase.execSQL("DROP TABLE IF EXISTS effectiveness;");
         mydatabase.execSQL("CREATE TABLE effectiveness(id int AUTO_INCREMENT, type varchar(255), no_effective VARCHAR(255), not_effective VARCHARR(255), normal_effective VARCHAR(255), super_effective VARCHAR(255));");
 
         mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('normal')");
