@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             //gridView.setBackground(getResources().getDrawable(R.drawable.teams2));
-            List<Pokemon> pokemon = DatabaseUtil.setAttacks(this, DatabaseUtil.getPokemon(this, R.raw.list));
+            List<Pokemon> pokemon = DatabaseUtil.setAttacks(this, DatabaseUtil.getPokemonFromFile(this, R.raw.list));
 
             // Instance of ImageAdapter Class
             ImageAdapter adapter = new ImageAdapter(this, pokemon);

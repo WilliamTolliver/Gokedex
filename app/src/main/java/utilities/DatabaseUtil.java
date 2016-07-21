@@ -23,19 +23,39 @@ import wttechnologies.com.pokedextest.SpecialAttack;
  */
 public class DatabaseUtil {
 
+    private static SQLiteDatabase mydatabase;
+
     public static boolean createPokemonDB(Context ctx){
         try {
-            SQLiteDatabase mydatabase = ctx.openOrCreateDatabase("gokedex", ctx.MODE_PRIVATE, null);
+            mydatabase = ctx.openOrCreateDatabase("gokedex", ctx.MODE_PRIVATE, null);
             makePokemonTable(ctx, mydatabase);
             makeNormalAttackTable(ctx, mydatabase);
             makeSpecialAttackTable(ctx, mydatabase);
+            makeEffectivenessTable(ctx, mydatabase);
+            mydatabase.close();
         }catch (Exception e){
             return false;
         }
         return true;
     }
 
-    public static List<Pokemon> getPokemon(Context ctx, int resId)
+    public static List<Pokemon> queryAllPokemon(Context ctx){
+        List<Pokemon> pokemonList = new ArrayList<>();
+        mydatabase = ctx.openOrCreateDatabase("gokedex", ctx.MODE_PRIVATE, null);
+        Cursor resultSet = mydatabase.rawQuery("Select * from pokemon",null);
+        while(resultSet.moveToNext()){
+            Pokemon pokemon = new Pokemon();
+            pokemon.setId(resultSet.getInt(0));
+            pokemon.setName(resultSet.getString(1).toString());
+            pokemon.setType1(resultSet.getString(2));
+            pokemon.setType2(resultSet.getString(3));
+            pokemon.setImageId(resultSet.getInt(4));
+        }
+
+        return pokemonList;
+    }
+
+    public static List<Pokemon> getPokemonFromFile(Context ctx, int resId)
     {
         InputStream inputStream = ctx.getResources().openRawResource(resId);
         List<String> pokemonValues;
@@ -59,7 +79,7 @@ public class DatabaseUtil {
                     } else if (pokemonValues.size() == 5) {
                         poke = new Pokemon(Integer.parseInt(pokemonValues.get(0)), pokemonValues.get(1), pokemonValues.get(2), pokemonValues.get(3), 0, null, null);
                         poke.setImageId( ctx.getResources().getIdentifier(poke.getName().toString(), "drawable", ctx.getPackageName()));
-                }
+                    }
                 }
                 pokemonList.add(poke);
             }
@@ -71,7 +91,7 @@ public class DatabaseUtil {
         return pokemonList;
     }
 
-    public static List<NormalAttack> getNormalAttacks(Context ctx, int resId){
+    public static List<NormalAttack> getNormalAttacksFromFile(Context ctx, int resId){
         InputStream inputStream = ctx.getResources().openRawResource(resId);
         List<String> normalAttackValues = new ArrayList<>();
         List<NormalAttack> normalAttackList = new ArrayList<>();
@@ -99,7 +119,7 @@ public class DatabaseUtil {
         return normalAttackList;
     }
 
-    public static List<SpecialAttack> getSpecialAttacks(Context ctx, int resId){
+    public static List<SpecialAttack> getSpecialAttacksFromFile(Context ctx, int resId){
         List<String> names = new ArrayList<>();
         InputStream inputStream = ctx.getResources().openRawResource(resId);
         List<String> specialAttackValues = new ArrayList<>();
@@ -133,17 +153,41 @@ public class DatabaseUtil {
         mydatabase.execSQL("DROP TABLE IF EXISTS pokemon;");
         mydatabase.execSQL("CREATE TABLE pokemon(id int,name varchar(255),type1 varchar(255),type2 varchar(255),imageId int);");
 
-        List<Pokemon> result = getPokemon(ctx, R.raw.list);
+        List<Pokemon> result = getPokemonFromFile(ctx, R.raw.list);
         for(Pokemon pokemon : result) {
             mydatabase.execSQL("INSERT INTO pokemon (id, name, type1, type2, imageId)  VALUES(" + pokemon.getId() + ", '" + pokemon.getName().toString() + "', '" + pokemon.getType1().toString() + "', '" + pokemon.getType2().toString() + "', " + pokemon.getImageId() + ");");
         }
+    }
+
+    public static void makeEffectivenessTable(Context ctx,SQLiteDatabase mydatabase){
+        mydatabase.execSQL("DROP TABLE IF EXISTS pokemon;");
+        mydatabase.execSQL("CREATE TABLE effectiveness(id int AUTO_INCREMENT, type varchar(255), no_effective VARCHAR(255), not_effective VARCHARR(255), normal_effective VARCHAR(255), super_effective VARCHAR(255));");
+
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('normal')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('fight')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('flying')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('poison')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('ground')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('rock')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('bug')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('ghost')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('steel')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('fire')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('water')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('grass')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('electric')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('psychic')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('ice')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('dragon')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('dark')");
+        mydatabase.execSQL("INSERT INTO effectiveness(type) VALUES('fairy')");
     }
 
     public static void makeNormalAttackTable(Context ctx,SQLiteDatabase mydatabase) {
         mydatabase.execSQL("DROP TABLE IF EXISTS normal_attack;");
         mydatabase.execSQL("CREATE TABLE normal_attack(name varchar(255), type varchar(255), damage int, known_by VARCHAR);");
 
-        List<NormalAttack> normalAttacks = getNormalAttacks(ctx, R.raw.normal);
+        List<NormalAttack> normalAttacks = getNormalAttacksFromFile(ctx, R.raw.normal);
         for (NormalAttack attack : normalAttacks) {
             mydatabase.execSQL("INSERT INTO normal_attack (name, type, damage, known_by)  VALUES('" + attack.getName().toString() + "', '" + attack.getType().toString() + "', " + attack.getDamage() + ", '" + attack.getKnown_by() +  "');");
 
@@ -154,7 +198,7 @@ public class DatabaseUtil {
         mydatabase.execSQL("DROP TABLE IF EXISTS special_attack;");
         mydatabase.execSQL("CREATE TABLE special_attack(name varchar(255), type varchar(255), damage int, energy int, known_by VARCHAR);");
 
-        List<SpecialAttack> specialAttacks = getSpecialAttacks(ctx,R.raw.special);
+        List<SpecialAttack> specialAttacks = getSpecialAttacksFromFile(ctx,R.raw.special);
         for(SpecialAttack attack : specialAttacks) {
             mydatabase.execSQL("INSERT INTO special_attack (name, type, damage, energy, known_by)  VALUES('" +  attack.getName().toString() + "', '" + attack.getType().toString() + "', "  + attack.getDamage() + ", " +  attack.getEnergy() + ", '" + attack.getKnown_by() + "');");        }
     }
@@ -209,7 +253,7 @@ public class DatabaseUtil {
 
     public static List<Pokemon> setAttacks(Context ctx, List<Pokemon> pokemons){
 
-            pokemons = getPokemon(ctx, R.raw.list);
+            pokemons = getPokemonFromFile(ctx, R.raw.list);
 
         for (Pokemon poke : pokemons) {
             if(getNormalsPer(ctx, poke).size() > 0) {
